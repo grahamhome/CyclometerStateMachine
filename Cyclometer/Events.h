@@ -2,6 +2,7 @@
 #define EVENTS_H_
 
 #include "EventSignals.h"
+#include <ctime>
 
 class Events{
 private:
@@ -9,7 +10,7 @@ private:
 	float eventData;
 
 public:
-	Events(float data, EventSignals type);
+	Events(time_t data, EventSignals type);
 	EventSignals getType();
 	float getData();
 }

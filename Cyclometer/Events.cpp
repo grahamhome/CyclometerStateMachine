@@ -1,8 +1,8 @@
 #includes "Event.h"
 
-Events::Events(float data, EventSignals type){
+Events::Events(time_t data, EventSignals type){
 	eventType = type;
-	eventData = data;
+	time_t = data;
 }
 
 EventSignals Events::getType(){
