@@ -18,18 +18,11 @@ void TimeDisplayState::accept(Events event){
 }
 
 void TimeDisplayState::onEntry(){
-	//TODO
+	display->setData("Time");
 }
 
 void TimeDisplayState::onExit(){
-	//TODO
+	//do nothing
 }
 
-void TimeDisplayState::updateData(){
-	//TODO
-}
-
-void TimeDisplayState::updateDisplay(){
-	//TODO
-}
 

@@ -17,8 +17,6 @@ public:
 	void accept(Events event);
 	void onEntry();
 	void onExit();
-	void updateData();
-	void updateDisplay();
 };
 
 #endif /* TRIPDATARESETSTATE_H_ */

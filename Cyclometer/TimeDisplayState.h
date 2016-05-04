@@ -17,8 +17,7 @@ public:
 	void accept(Events event);
 	void onEntry();
 	void onExit();
-	void updateData();
-	void updateDisplay();
+
 };
 
 #endif /* TIMEDISPLAYSTATE_H_ */

@@ -22,8 +22,6 @@ public:
 	virtual void accept(Events event);
 	virtual void onEntry();
 	virtual void onExit();
-	virtual void updateData();
-	virtual void updateDisplay();
 	std::string getID();
 
 };

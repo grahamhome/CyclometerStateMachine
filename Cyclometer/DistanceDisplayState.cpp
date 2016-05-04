@@ -14,21 +14,14 @@ DistanceDisplayState::~DistanceDisplayState() {
 }
 
 void DistanceDisplayState::accept(Events event){
-	//TODO
+
 }
 
 void DistanceDisplayState::onEntry(){
-	//TODO
+	display->setData("Distance");
 }
 
 void DistanceDisplayState::onExit(){
-	//TODO
+	//do nothing
 }
 
-void DistanceDisplayState::updateData(){
-	//TODO
-}
-
-void DistanceDisplayState::updateDisplay(){
-	//TODO
-}

@@ -18,18 +18,11 @@ void TripDataResetState::accept(Events event){
 }
 
 void TripDataResetState::onEntry(){
-	//TODO
+	display->setData("Reset");
 }
 
 void TripDataResetState::onExit(){
 	//TODO
 }
 
-void TripDataResetState::updateData(){
-	//TODO
-}
-
-void TripDataResetState::updateDisplay(){
-	//TODO
-}
 

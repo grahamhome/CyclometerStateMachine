@@ -34,14 +34,6 @@ void CyclometerState::onExit(){
 	//do nothing
 }
 
-void CyclometerState::updateData(){
-	//do nothing
-}
-
-void CyclometerState::updateDisplay(){
-	//do nothing
-}
-
 std::string CyclometerState::getID(){
 	return stateID;
 }

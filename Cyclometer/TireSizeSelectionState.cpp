@@ -18,17 +18,9 @@ void TireSizeSelectionState::accept(Events event){
 }
 
 void TireSizeSelectionState::onEntry(){
-	//TODO
+	display->setData("TireSize");
 }
 
 void TireSizeSelectionState::onExit(){
-	//TODO
-}
-
-void TireSizeSelectionState::updateData(){
-	//TODO
-}
-
-void TireSizeSelectionState::updateDisplay(){
-	//TODO
+	//do nothing
 }

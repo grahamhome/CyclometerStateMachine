@@ -18,17 +18,10 @@ void SpeedDisplayState::accept(Events event){
 }
 
 void SpeedDisplayState::onEntry(){
-	//TODO
+	display->setData("Speed");
 }
 
 void SpeedDisplayState::onExit(){
-	//TODO
+	//do nothing
 }
 
-void SpeedDisplayState::updateData(){
-	//TODO
-}
-
-void SpeedDisplayState::updateDisplay(){
-	//TODO
-}

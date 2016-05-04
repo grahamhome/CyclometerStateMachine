@@ -19,17 +19,9 @@ void DistanceUnitSelectionState::accept(Events event){
 }
 
 void DistanceUnitSelectionState::onEntry(){
-	//TODO
+	display->setData("UnitSelection");
 }
 
 void DistanceUnitSelectionState::onExit(){
-	//TODO
-}
-
-void DistanceUnitSelectionState::updateData(){
-	//TODO
-}
-
-void DistanceUnitSelectionState::updateDisplay(){
-	//TODO
+	//do nothing
 }
