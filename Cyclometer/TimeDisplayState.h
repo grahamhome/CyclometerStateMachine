@@ -12,7 +12,7 @@
 class TimeDisplayState {
 public:
 	TimeDisplayState();
-	TimeDisplayState(CyclometerData* d, OutputController* dis);
+	TimeDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~TimeDisplayState();
 	void accept(Events event);
 	void onEntry();

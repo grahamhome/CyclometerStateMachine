@@ -7,7 +7,7 @@
 
 #include "DistanceDisplayState.h"
 
-DistanceDisplayState::DistanceDisplayState(CyclometerData* d, OutputDisplay* dis) : CyclometerState("DistanceDisplayState", d, dis){};
+DistanceDisplayState::DistanceDisplayState(CyclometerController* c, CyclometerData* d, OutputDisplay* dis) : CyclometerState("DistanceDisplayState", c, d, dis){};
 
 DistanceDisplayState::~DistanceDisplayState() {
 	// TODO Auto-generated destructor stub

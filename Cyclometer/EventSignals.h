@@ -2,10 +2,11 @@
 #define EVENTSIGNALS_H_
 
 enum EventSignals{
-	WRP = 0,	// wheel rotation pulse
-	MBP = 1,	// mode button pressed
-	SBP = 2,	// set button pressed
-	RST = 3,	// reset
+	WRP,	// wheel rotation pulse
+	MBP,	// mode button pressed
+	SBP,	// set button pressed
+	TRST,	// trip reset
+	FRST	// full reset
 };
 
 #endif /* EVENTSIGNALS_H_ */

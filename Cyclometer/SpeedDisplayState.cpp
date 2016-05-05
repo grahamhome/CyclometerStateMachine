@@ -7,7 +7,7 @@
 
 #include "SpeedDisplayState.h"
 
-SpeedDisplayState::SpeedDisplayState(CyclometerData* d, OutputDisplay* dis) : CyclometerState("SpeedDisplayState", d, dis){};
+SpeedDisplayState::SpeedDisplayState(CyclometerController* c, CyclometerData* d, OutputDisplay* dis) : CyclometerState("SpeedDisplayState", c, d, dis){};
 
 SpeedDisplayState::~SpeedDisplayState() {
 	// TODO Auto-generated destructor stub

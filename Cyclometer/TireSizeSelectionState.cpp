@@ -7,7 +7,7 @@
 
 #include "TireSizeSelectionState.h"
 
-TireSizeSelectionState::TireSizeSelectionState(CyclometerData* d, OutputDisplay* dis) : CyclometerState("TireSizeSelectionState", d, dis){};
+TireSizeSelectionState::TireSizeSelectionState(CyclometerController* c, CyclometerData* d, OutputDisplay* dis) : CyclometerState("TireSizeSelectionState", c, d, dis){};
 
 TireSizeSelectionState::~TireSizeSelectionState() {
 	// TODO Auto-generated destructor stub

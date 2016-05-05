@@ -12,7 +12,7 @@
 class SpeedDisplayState {
 public:
 	SpeedDisplayState();
-	SpeedDisplayState(CyclometerData* d, OutputController* dis);
+	SpeedDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~SpeedDisplayState();
 	void accept(Events event);
 	void onEntry();

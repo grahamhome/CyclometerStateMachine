@@ -12,7 +12,7 @@
 class DistanceUnitSelectionState {
 public:
 	DistanceUnitSelectionState();
-	DistanceUnitSelectionState(CyclometerData* d, OutputController* dis);
+	DistanceUnitSelectionState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~DistanceUnitSelectionState();
 	void accept(Events event);
 	void onEntry();

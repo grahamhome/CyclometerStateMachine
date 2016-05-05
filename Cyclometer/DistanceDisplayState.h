@@ -12,7 +12,7 @@
 class DistanceDisplayState {
 public:
 	DistanceDisplayState();
-	DistanceDisplayState(CyclometerData* d, OutputController* dis);
+	DistanceDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~DistanceDisplayState();
 	void accept(Events event);
 	void onEntry();

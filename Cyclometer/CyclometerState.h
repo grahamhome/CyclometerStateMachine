@@ -13,11 +13,12 @@ class CyclometerState {
 protected:
 	std::string stateID;
 	CyclometerData* data;
+	CyclometerController* controller;
 	OutputController* display;
 
 public:
 	CyclometerState();
-	CyclometerState(std::string stateID, CyclometerData* d, OutputController* dis);
+	CyclometerState(std::string stateID, CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~CyclometerState();
 	virtual void accept(Events event);
 	virtual void onEntry();

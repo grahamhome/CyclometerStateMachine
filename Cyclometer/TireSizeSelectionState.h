@@ -12,7 +12,7 @@
 class TireSizeSelectionState {
 public:
 	TireSizeSelectionState();
-	TireSizeSelectionState(CyclometerData* d, OutputController* dis);
+	TireSizeSelectionState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~TireSizeSelectionState();
 	void accept(Events event);
 	void onEntry();

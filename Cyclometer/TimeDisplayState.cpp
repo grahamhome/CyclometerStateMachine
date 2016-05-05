@@ -7,7 +7,7 @@
 
 #include "TimeDisplayState.h"
 
-TimeDisplayState::TimeDisplayState(CyclometerData* d, OutputDisplay* dis) : CyclometerState("TimeDisplayState", d, dis){};
+TimeDisplayState::TimeDisplayState(CyclometerController* c, CyclometerData* d, OutputDisplay* dis) : CyclometerState("TimeDisplayState", c, d, dis){};
 
 TimeDisplayState::~TimeDisplayState() {
 	// TODO Auto-generated destructor stub

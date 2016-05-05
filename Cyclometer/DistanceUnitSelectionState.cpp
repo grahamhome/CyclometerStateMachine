@@ -7,7 +7,7 @@
 
 #include "DistanceUnitSelectionState.h"
 
-DistanceUnitSelectionState::DistanceUnitSelectionState(CyclometerData* d, OutputDisplay* dis) : CyclometerState("DistanceUnitSelectionState", d, dis){};
+DistanceUnitSelectionState::DistanceUnitSelectionState(CyclometerController* c, CyclometerData* d, OutputDisplay* dis) : CyclometerState("DistanceUnitSelectionState", c, d, dis){};
 
 
 DistanceUnitSelectionState::~DistanceUnitSelectionState() {
@@ -15,7 +15,14 @@ DistanceUnitSelectionState::~DistanceUnitSelectionState() {
 }
 
 void DistanceUnitSelectionState::accept(Events event){
-	//TODO
+	switch(event->getType()){
+		case MBP:
+			data->setUnitsMetric(!(data->getUnitsMetric()));
+		case FRST:
+			data->resetAllData();
+		case SBP:
+			controller->transition("TireSizeSelectionState");
+	}
 }
 
 void DistanceUnitSelectionState::onEntry(){
