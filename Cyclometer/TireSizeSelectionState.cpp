@@ -14,11 +14,28 @@ TireSizeSelectionState::~TireSizeSelectionState() {
 }
 
 void TireSizeSelectionState::accept(Events event){
-	//TODO
+	switch(event->getType()){
+		case MBP:
+			if (data->getTireSize() < 220){
+				data->setTireSize((data->getTireSize())+1);
+			} else {
+				data->setTireSize(190);
+			}
+		case FRST:
+			data->resetAllData();
+			controller->transition("DistanceUnitSelectionState");
+		case SBP:
+			if (controller->getLastState() == "DistanceUnitSelectionState"){
+				controller->transition("SpeedDisplayState");
+			} else {
+				controller->transition("DistanceDisplayState");
+			}
+	}
 }
 
 void TireSizeSelectionState::onEntry(){
 	display->setData("TireSize");
+	data->setTireSize(210);
 }
 
 void TireSizeSelectionState::onExit(){
