@@ -161,7 +161,7 @@ int CyclometerData::getTireSize() {
 /*
  * Sets tire size to the given value
  */
-void setTireSize(int size) {
+void CyclometerData::setTireSize(int size) {
 	//Set tire size
 	getMutex(tireSize_mutex);
 	tireSize = size;
@@ -171,7 +171,7 @@ void setTireSize(int size) {
 /*
  * Returns trip start time.
  */
-time_t getTripStartTime() {
+time_t CyclometerData::getTripStartTime() {
 	//Get trip start time
 	getMutex(tripStartTime_mutex);
 	time_t startTime = tripStartTime;
@@ -182,7 +182,7 @@ time_t getTripStartTime() {
 /*
  * Sets trip start time to the current time.
  */
-void startTripTimer() {
+void CyclometerData::startTripTimer() {
 	//Set trip start time
 	getMutex(tripStartTime_mutex);
 	tripStartTime = time(NULL); //Set to current time
@@ -193,7 +193,7 @@ void startTripTimer() {
 /*
  * Gets elapsed trip time in seconds relative to the current time.
  */
-double getTripTime() {
+double CyclometerData::getTripTime() {
 	//Get trip start time
 	return difftime(time(NULL), gegtTripStartTime());
 }
@@ -201,7 +201,7 @@ double getTripTime() {
 /*
  * Returns the current trip distance in km or mi depending on the value of unitsMetric.
  */
-float getTripDistance() {
+float CyclometerData::getTripDistance() {
 	//Get distance
 	getMutex(tripDistance_mutex);
 	float distance = tripDistance;
@@ -215,7 +215,7 @@ float getTripDistance() {
 /*
  * Sets current trip distance to 0.
  */
-void resetTripDistance() {
+void CyclometerData::resetTripDistance() {
 	//Reset distance
 	getMutex(tripDistance_mutex);
 	tripDistance = 0;
@@ -226,7 +226,7 @@ void resetTripDistance() {
  * Increments trip distance by the tire size to account for
  * the distance added by 1 wheel rotation.
  */
-void incrementTripDistance() {
+void CyclometerData::incrementTripDistance() {
 	//Update trip distance
 	getMutex(tripDistance_mutex);
 	tripDistance += (getTireSize()/1000);
@@ -236,7 +236,7 @@ void incrementTripDistance() {
 /*
  * Resets all trip data (speed, start time distance)
  */
-void resetTripData() {
+void CyclometerData::resetTripData() {
 	resetTripSpeed();
 	startTripTimer();
 	resetTripDistance();
@@ -245,7 +245,7 @@ void resetTripData() {
 /*
  * Resets all data (trip data, units, tire size,
  */
-void resetAllData() {
+void CyclometerData::resetAllData() {
 	resetTripData();
 	setTireSize(210); //Set tire size to default value
 	setUnitsMetric(true);
