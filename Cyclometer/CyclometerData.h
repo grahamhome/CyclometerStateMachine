@@ -54,6 +54,7 @@ private:
 	void resetCurrentSpeed();
 	void resetTripDistance();
 	void startTripTimer();
+	void incrementTripDistance();
 };
 
 #endif /* CYCLOMETERDATA_H_ */

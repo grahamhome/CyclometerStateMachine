@@ -187,6 +187,7 @@ void startTripTimer() {
 	getMutex(tripStartTime_mutex);
 	tripStartTime = time(NULL); //Set to current time
 	giveMutex(tripStartTime_mutex);
+	resetTripDistance(); //Reset trip distance since trip is starting
 }
 
 /*
@@ -194,10 +195,7 @@ void startTripTimer() {
  */
 double getTripTime() {
 	//Get trip start time
-	getMutex(tripStartTime_mutex);
-	time_t startTime = tripStartTime;
-	giveMutex(tripStartTime_mutex);
-	return difftime(time(NULL), startTime);
+	return difftime(time(NULL), gegtTripStartTime());
 }
 
 /*
@@ -208,6 +206,9 @@ float getTripDistance() {
 	getMutex(tripDistance_mutex);
 	float distance = tripDistance;
 	giveMutex(tripDistance_mutex);
+	if (! getUnitsMetric()) {
+		distance *= 0.621371;
+	}
 	return distance;
 }
 
@@ -222,7 +223,8 @@ void resetTripDistance() {
 }
 
 /*
- * Increments trip distance by the tire size.
+ * Increments trip distance by the tire size to account for
+ * the distance added by 1 wheel rotation.
  */
 void incrementTripDistance() {
 	//Update trip distance
@@ -245,6 +247,8 @@ void resetTripData() {
  */
 void resetAllData() {
 	resetTripData();
-	//TODO: complete
+	setTireSize(210); //Set tire size to default value
+	setUnitsMetric(true);
+	resetCurrentSpeed();
 }
 
