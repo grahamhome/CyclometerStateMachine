@@ -14,7 +14,19 @@ DistanceDisplayState::~DistanceDisplayState() {
 }
 
 void DistanceDisplayState::accept(Events event){
-
+	switch(event->getType()){
+		case MBP:
+			controller->transition("TimeDisplayState");
+		case TRST:
+			data->reset(false);
+		case FRST:
+			data->reset(true);
+			controller->transition("DistanceUnitSelectionState");
+		case SBP:
+			controller->transition("TireSizeSelectionState");
+		case SST:
+			data->trip(!(data->trip()));
+	}
 }
 
 void DistanceDisplayState::onEntry(){

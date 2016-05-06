@@ -14,7 +14,19 @@ SpeedDisplayState::~SpeedDisplayState() {
 }
 
 void SpeedDisplayState::accept(Events event){
-	//TODO
+	switch(event->getType()){
+		case MBP:
+			controller->transition("DistanceDisplayState");
+		case TRST:
+			data->reset(false);
+		case FRST:
+			data->reset(true);
+			controller->transition("DistanceUnitSelectionState");
+		case SBP:
+			data->manual(!(data->manual());
+		case SST:
+			data->trip(!(data->trip()));
+	}
 }
 
 void SpeedDisplayState::onEntry(){

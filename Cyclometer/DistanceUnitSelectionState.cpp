@@ -19,7 +19,7 @@ void DistanceUnitSelectionState::accept(Events event){
 		case MBP:
 			data->setUnitsMetric(!(data->getUnitsMetric()));
 		case FRST:
-			data->resetAllData();
+			data->reset(true);
 		case SBP:
 			controller->transition("TireSizeSelectionState");
 	}

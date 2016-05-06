@@ -14,7 +14,19 @@ TimeDisplayState::~TimeDisplayState() {
 }
 
 void TimeDisplayState::accept(Events event){
-	//TODO
+	switch(event->getType()){
+		case MBP:
+			controller->transition("SpeedDisplayState");
+		case TRST:
+			data->reset(false);
+		case FRST:
+			data->reset(true);
+			controller->transition("DistanceUnitSelectionState");
+		case SBP:
+			data->manual(!(data->manual()));
+		case SST:
+			data->trip(!(data->trip()));
+	}
 }
 
 void TimeDisplayState::onEntry(){
