@@ -2,7 +2,7 @@
  * TireSizeSelectionState.cpp
  *
  *  Created on: May 4, 2016
- *      Author: Shannalotte
+ *      Author: Kai
  */
 
 #include "TireSizeSelectionState.h"

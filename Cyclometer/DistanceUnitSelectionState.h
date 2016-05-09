@@ -2,7 +2,7 @@
  * DistanceUnitSelectionState.h
  *
  *  Created on: May 4, 2016
- *      Author: Shannalotte
+ *      Author: Kai
  */
 
 #ifndef DISTANCEUNITSELECTIONSTATE_H_

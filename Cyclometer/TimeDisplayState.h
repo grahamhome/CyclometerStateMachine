@@ -2,7 +2,7 @@
  * TimeDisplayState.h
  *
  *  Created on: May 4, 2016
- *      Author: Shannalotte
+ *      Author: Kai
  */
 
 #ifndef TIMEDISPLAYSTATE_H_
