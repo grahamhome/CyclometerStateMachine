@@ -34,15 +34,33 @@ int main() {
 	//changing the states and do the stuff
 
 	//changing distance unit
+	printf("Unit Metric: %B\n", context->testData->unitMetric());
 	context->accept(eMBP);
+	printf("Unit Metric: %B\n", context->testData->unitMetric());
 	//getting to tire size selection
 	context->accept(eSBP);
+
 	//increase tire size by 3
 	context->accept(eMBP);
 	context->accept(eMBP);
 	context->accept(eMBP);
 	// getting to speed display
 	context->accept(eSBP);
+
+	//change to manual and then change it back
+	context->accept(eSBP);
+	context->accept(eSBP);
+	//getting to Distance display
+	context->accept(eMBP);
+
+	//getting to time display
+	context->accept(eMBP);
+
+	//change to manual and then change it back
+	context->accept(eSBP);
+	context->accept(eSBP);
+	//getting to speed display
+	context->accept(eMBP);
 
 
 }
