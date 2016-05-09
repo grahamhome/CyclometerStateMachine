@@ -25,7 +25,9 @@ void SpeedDisplayState::accept(Events event){
 		case SBP:
 			data->manual(!(data->manual()));
 		case SST:
-			data->trip(!(data->trip()));
+			if (data->manual()){
+				data->trip(!(data->trip()));
+			}
 	}
 }
 
