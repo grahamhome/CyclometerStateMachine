@@ -14,6 +14,7 @@
 int main() {
 	//construct the controller
 	CyclometerController context();
+	context->run();
 
 	//testing for the controller
 
