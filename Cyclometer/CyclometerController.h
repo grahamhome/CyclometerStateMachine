@@ -16,22 +16,24 @@ public:
 	CyclometerController();
 
 	void run();
-	std::string getLastState();
 	void accept(Event event);
+	void transition(std::string stateName);
+	CyclometerData testData(); //Method for testing purposes only
+	std::string testLastState(); //Method for testing purposes only
+	std::string testCurrentState(); //Method for testing purposes only
 
 private:
 
 	std::string currentState; //The state ID of the current state
-	std::map<std::string, CyclometerState> states; //Maps state IDs to state objects
+	std::string lastState; //The state ID of the previous state
+	map<std::string, CyclometerState> states; //Maps state IDs to state objects
 	OutputController display;
 	CyclometerData data;
-	std::string lastState; //The state ID of the previous state
-	bool paused;
-	std::queue eventQueue; //The queue of "accepted" events waiting to be processed
-	//TODO: Add timer object
-
-	void resetTimeout();
-	void timeout();
+	queue<Event> eventQueue; //The queue of "accepted" events waiting to be processed
+	pthread_mutex_t queueMutex;
+	void buildStateMap();
+	void getMutex(pthread_mutex_t mutex);
+	void giveMutex(pthread_mutex_t mutex);
 
 };
 #endif /* CYCLOMETERCONTROLLER_H_ */

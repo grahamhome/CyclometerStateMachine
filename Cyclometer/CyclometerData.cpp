@@ -91,7 +91,7 @@ bool CyclometerData::manual() {
  */
 void update(time_t pulseTime) {
 
-	//If mode == auto
+	//If auto mode
 	if (!manual()) {
 
 		//Get time since last wheel sensor pulse received
@@ -107,7 +107,7 @@ void update(time_t pulseTime) {
 		incrementDistance();
 	}
 
-	//If mode == manual
+	//If manual mode
 	else {
 
 		//If trip is active
