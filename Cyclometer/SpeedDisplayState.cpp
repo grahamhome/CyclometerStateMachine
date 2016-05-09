@@ -23,7 +23,7 @@ void SpeedDisplayState::accept(Events event){
 			data->reset(true);
 			controller->transition("DistanceUnitSelectionState");
 		case SBP:
-			data->manual(!(data->manual());
+			data->manual(!(data->manual()));
 		case SST:
 			data->trip(!(data->trip()));
 	}

@@ -9,16 +9,21 @@
 
 CyclometerData::CyclometerData() {
 	pthread_mutexattr_init(mutexAttr); //Initialize mutex attribute variable
-	pthread_mutexattr_settype(mutexAttr, PTHREAD_MUTEX_ERRORCHECK); //Set mutex attribute to error-checking type
+	pthread_mutexattr_settype(mutexAttr, PTHREAD_MUTEX_ERRORCHECK); //Set mutex attribute variable to error-checking type
+
+	//Initialize mutexes with error-checking attribute
+	pthread_mutex_init(tripActive_mutex, mutexAttr);
+	pthread_mutex_init(manualMode_mutex, mutexAttr);
 	pthread_mutex_init(tripSpeed_mutex, mutexAttr);
 	pthread_mutex_init(currentSpeed_mutex, mutexAttr);
 	pthread_mutex_init(tripStartTime_mutex, mutexAttr);
+	pthread_mutex_init(tripTime_mutex, mutexAttr);
+	pthread_mutex_init(tripDistance_mutex, mutexAttr);
+	pthread_mutex_init(lastUpdateTime_mutex, mutexAttr);
 	pthread_mutex_init(unitsMetric_mutex, mutexAttr);
 	pthread_mutex_init(tireSize_mutex, mutexAttr);
-	pthread_mutex_init(lastPulseTime_mutex, mutexAttr);
-	pthread_mutex_init(tripDistance_mutex, mutexAttr);
 
-	resetAllData();
+	resetAllData(); //Initialize all values to defaults
 }
 
 /*
@@ -41,6 +46,84 @@ void CyclometerDate::giveMutex(pthread_mutex_t mutex) {
 	while (result != 0) {
 		result = pthread_mutex_unlock(mutex);
 	 }
+}
+
+/*
+ * Toggles trip active/inactive
+ */
+void CyclometerData::trip(bool active) {
+	getMutex(tripActive_mutex);
+	tripActive = active;
+	giveMutex(tripActive_mutex);
+}
+
+/*
+ * Returns trip active/inactive status
+ */
+bool CyclometerData::trip() {
+	getMutex(tripActive_mutex);
+	bool active = trip;
+	giveMutex(tripActive_mutex);
+	return active;
+}
+/*
+* Toggles manual mode on/off
+*/
+void CyclometerData::manual(bool on) {
+	getMutex(manualMode_mutex);
+	manual = on;
+	giveMutex(manualMode_mutex);
+}
+
+/*
+* Returns manual mode status
+*/
+bool CyclometerData::manual() {
+	getMutex(manualMode_mutex);
+	bool on = manual;
+	giveMutex(manualMode_mutex);
+	return on;
+}
+
+/*
+ * Updates current and/or trip values depending on value of tripActive.
+ * Takes a time value corresponding to a wheel rotation sensor pulse time
+ */
+void update(time_t pulseTime) {
+
+	//If mode == auto
+	if (!manual()) {
+
+		//Get time since last wheel sensor pulse received
+		elapsed = difftime(pulseTime, lastUpdateTime());
+		//If timeout has not expired
+		if (elapsed < timeout) {
+
+			//Update trip time
+			updateTripTime(elapsed);
+		}
+
+		//Update trip distance
+		incrementDistance();
+	}
+
+	//If mode == manual
+	else {
+
+		//If trip is active
+		if (trip()) {
+
+			//Update trip time
+			updateTripTime(elapsed);
+
+			//Update trip distance
+			incrementDistance();
+		}
+
+	}
+
+	//Update last pulse time
+	setLastPulseTime(pulseTime);
 }
 
 /*

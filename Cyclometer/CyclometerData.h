@@ -15,10 +15,10 @@ class CyclometerData {
 public:
 	CyclometerData();
 
-	void trip(bool on); //Toggles trip mode ON iff on == true
+	void trip(bool active); //Toggles trip mode ON iff active == true
 	bool trip(); //Returns trip toggle value
 
-	void manual(bool active); //Toggles manual mode ON iff active == true
+	void manual(bool on); //Toggles manual mode ON iff on == true
 	bool manual(); //Returns mode toggle value
 
 	void update(time_t pulseTime); //Method to update speed calculations (called by CyclometerController on wheel pulse event processing)
@@ -42,13 +42,13 @@ public:
 private:
 	pthread_mutexattr_t mutexAttr; //Mutex attribute variable
 
-	//Trip mode == ON?
-	bool tripMode;
-	pthread_mutex_t tripMode_mutex;
-
 	//Trip == active?
 	bool tripActive;
 	pthread_mutex_t tripActive_mutex;
+
+	//Manual mode == on?
+	bool manualMode;
+	pthread_mutex_t manualMode_mutex;
 
 	//Current Speed
 	float currentSpeed;
@@ -64,11 +64,15 @@ private:
 
 	//Trip Elapsed Time
 	time_t tripTime;
-	pthread_mutex_t tripStartTime_mutex;
+	pthread_mutex_t tripTime_mutex;
 
 	//Trip Distance
 	float tripDistance;
 	pthread_mutex_t tripDistance_mutex;
+
+	//Time of last wheel sensor pulse
+	time_t lastUpdateTime;
+	pthread_mutex_t lastUpdateTime_mutex;
 
 	//Units == metric?
 	bool unitsMetric;
@@ -78,9 +82,8 @@ private:
 	int tireSize;
 	pthread_mutex_t tireSize_mutex;
 
-	//Time of last wheel sensor pulse
-	time_t lastUpdateTime;
-	pthread_mutex_t lastUpdateTime_mutex;
+	//Auto mode timeout value in seconds
+	static int timeout = 60;
 
 	void getMutex(pthread_mutex_t mutex);
 	void giveMutex(pthread_mutex_t mutex);
