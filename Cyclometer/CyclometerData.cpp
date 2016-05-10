@@ -8,6 +8,8 @@
 #include "CyclometerData.h"
 
 CyclometerData::CyclometerData() {
+	timeout = 60; //Set timeout delay in seconds
+
 	pthread_mutexattr_init(mutexAttr); //Initialize mutex attribute variable
 	pthread_mutexattr_settype(mutexAttr, PTHREAD_MUTEX_ERRORCHECK); //Set mutex attribute variable to error-checking type
 
@@ -19,17 +21,17 @@ CyclometerData::CyclometerData() {
 	pthread_mutex_init(tripStartTime_mutex, mutexAttr);
 	pthread_mutex_init(tripTime_mutex, mutexAttr);
 	pthread_mutex_init(tripDistance_mutex, mutexAttr);
-	pthread_mutex_init(lastUpdateTime_mutex, mutexAttr);
+	pthread_mutex_init(lastUpdate_mutex, mutexAttr);
 	pthread_mutex_init(unitsMetric_mutex, mutexAttr);
 	pthread_mutex_init(tireSize_mutex, mutexAttr);
 
-	resetAllData(); //Initialize all values to defaults
+	reset(true); //Initialize all values to defaults
 }
 
 /*
  * Locks a mutex.
  */
-void CyclometerData::getMutex(pthread_mutex_t mutex) {
+void CyclometerData::getMutex(pthread_mutex_t *mutex) {
 	//Get mutex
 	int result = pthread_mutex_trylock(mutex);
 	while (result != 0) {
@@ -40,7 +42,7 @@ void CyclometerData::getMutex(pthread_mutex_t mutex) {
 /*
  * Unlocks a mutex.
  */
-void CyclometerDate::giveMutex(pthread_mutex_t mutex) {
+void CyclometerData::giveMutex(pthread_mutex_t *mutex) {
 	//Give mutex
 	int result = pthread_mutex_unlock(mutex);
 	while (result != 0) {
@@ -51,7 +53,7 @@ void CyclometerDate::giveMutex(pthread_mutex_t mutex) {
 /*
  * Toggles trip active/inactive
  */
-void CyclometerData::trip(bool active) {
+void CyclometerData::setTrip(bool active) {
 	getMutex(tripActive_mutex);
 	tripActive = active;
 	giveMutex(tripActive_mutex);
@@ -60,72 +62,83 @@ void CyclometerData::trip(bool active) {
 /*
  * Returns trip active/inactive status
  */
-bool CyclometerData::trip() {
+bool CyclometerData::getTrip() {
 	getMutex(tripActive_mutex);
-	bool active = trip;
+	bool active = tripActive;
 	giveMutex(tripActive_mutex);
 	return active;
 }
 /*
 * Toggles manual mode on/off
 */
-void CyclometerData::manual(bool on) {
+void CyclometerData::setManual(bool on) {
 	getMutex(manualMode_mutex);
-	manual = on;
+	manualMode = on;
 	giveMutex(manualMode_mutex);
 }
 
 /*
 * Returns manual mode status
 */
-bool CyclometerData::manual() {
+bool CyclometerData::getManual() {
 	getMutex(manualMode_mutex);
-	bool on = manual;
+	bool on = manualMode;
 	giveMutex(manualMode_mutex);
 	return on;
+}
+/*
+ * Returns time of last wheel pulse
+ */
+time_t CyclometerData::lastUpdateTime() {
+	getMutex(lastUpdate_mutex);
+	time_t updateTime = lastUpdate;
+	giveMutex(lastUpdate_mutex);
+	return updateTime;
 }
 
 /*
  * Updates current and/or trip values depending on value of tripActive.
  * Takes a time value corresponding to a wheel rotation sensor pulse time
  */
-void update(time_t pulseTime) {
+void CyclometerData::update(time_t pulseTime) {
 
 	//If auto mode
-	if (!manual()) {
+	if (! (getManual()) ) {
 
 		//Get time since last wheel sensor pulse received
-		elapsed = difftime(pulseTime, lastUpdateTime());
+		double elapsed = difftime(pulseTime, lastUpdateTime());
 		//If timeout has not expired
 		if (elapsed < timeout) {
-
-			//Update trip time
-			updateTripTime(elapsed);
 		}
 
 		//Update trip distance
-		incrementDistance();
+		incrementTripDistance();
 	}
 
 	//If manual mode
 	else {
 
 		//If trip is active
-		if (trip()) {
-
-			//Update trip time
-			updateTripTime(elapsed);
+		if (getTrip()) {
 
 			//Update trip distance
-			incrementDistance();
+			incrementTripDistance();
 		}
 
 	}
 
 	//Update last pulse time
-	setLastPulseTime(pulseTime);
+	setLastUpdateTime(pulseTime);
 }
 
+/*
+ * Sets the time of the last received wheel pulse to the given value.
+ */
+void CyclometerData::setLastUpdateTime(time_t pulseTime) {
+	getMutex(lastUpdate_mutex);
+	lastUpdate = pulseTime;
+	giveMutex(lastUpdate_mutex);
+}
 /*
  * Returns the current speed in kph or mph depending on the value of unitsMetric.
  */
@@ -146,11 +159,7 @@ float CyclometerData::getCurrentSpeed() {
  */
 void CyclometerData::setCurrentSpeed(time_t time) {
 	//Use previous wheel pulse time to get time difference between pulses, in hours
-	getMutex(lastPulseTime_mutex);
-	double elapsedTime = difftime(time, lastPulseTime)/3600;
-	//Update most recent wheel pulse time
-	lastPulseTime = time;
-	giveMutex(lastPulseTime_mutex);
+	double elapsedTime = difftime(time, lastUpdateTime())/3600;
 	//Calculate speed in kph (wheel circumference/time)
 	float speed = ((getTireSize()/1000)/elapsedTime);
 	//Set current speed
@@ -223,7 +232,7 @@ bool CyclometerData::getUnitsMetric() {
 /*
  * Sets the units to kilometers if the parameter is True, otherwise sets units to miles.
  */
-void CyclometerData::setUnitsMetric(bool metric) {
+void CyclometerData:: setUnitsMetric(bool metric) {
 	//Set units
 	getMutex(unitsMetric_mutex);
 	unitsMetric = metric;
@@ -265,10 +274,10 @@ time_t CyclometerData::getTripStartTime() {
 /*
  * Sets trip start time to the current time.
  */
-void CyclometerData::startTripTimer() {
+void CyclometerData::setTripStartTime(time_t startTime) {
 	//Set trip start time
 	getMutex(tripStartTime_mutex);
-	tripStartTime = time(NULL); //Set to current time
+	tripStartTime = startTime;
 	giveMutex(tripStartTime_mutex);
 	resetTripDistance(); //Reset trip distance since trip is starting
 }
@@ -278,7 +287,19 @@ void CyclometerData::startTripTimer() {
  */
 double CyclometerData::getTripTime() {
 	//Get trip start time
-	return difftime(time(NULL), gegtTripStartTime());
+	if (getManual()) {
+		if (getTrip()) {
+			return difftime(time(NULL), getTripStartTime());
+		} else {
+			return difftime(lastUpdateTime(), getTripStartTime());
+		}
+	} else {
+		if (timeout < difftime(time(NULL), lastUpdateTime())) {
+			return difftime(time(NULL), getTripStartTime());
+		} else {
+			return difftime(lastUpdateTime(), getTripStartTime());
+		}
+	}
 }
 
 /*
@@ -321,7 +342,6 @@ void CyclometerData::incrementTripDistance() {
  */
 void CyclometerData::resetTripData() {
 	resetTripSpeed();
-	startTripTimer();
 	resetTripDistance();
 }
 
@@ -332,6 +352,4 @@ void CyclometerData::resetAllData() {
 	resetTripData();
 	setTireSize(210); //Set tire size to default value
 	setUnitsMetric(true);
-	resetCurrentSpeed();
 }
-

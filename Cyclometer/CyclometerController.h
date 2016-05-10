@@ -8,15 +8,21 @@
 #ifndef CYCLOMETERCONTROLLER_H_
 #define CYCLOMETERCONTROLLER_H_
 
+#include <string.h>
 #include <map>
 #include <queue>
+#include <pthread.h>
+#include "CyclometerData.h"
+#include "CyclometerState.h"
+#include "Events.h"
+#include "OutputController.h"
 
 class CyclometerController {
 public:
 	CyclometerController();
 
 	void run();
-	void accept(Event event);
+	void accept(Events event);
 	void transition(std::string stateName);
 	CyclometerData testData(); //Method for testing purposes only
 	std::string testLastState(); //Method for testing purposes only
@@ -24,13 +30,14 @@ public:
 
 private:
 
+	pthread_mutexattr_t *mutexAttr; //Mutex attribute variable
 	std::string currentState; //The state ID of the current state
 	std::string lastState; //The state ID of the previous state
-	map<std::string, CyclometerState> states; //Maps state IDs to state objects
+	std::map<std::string, CyclometerState> states; //Maps state IDs to state objects
 	OutputController display;
 	CyclometerData data;
-	queue<Event> eventQueue; //The queue of "accepted" events waiting to be processed
-	pthread_mutex_t queueMutex;
+	std::queue<Events> eventQueue; //The queue of "accepted" events waiting to be processed
+	pthread_mutex_t *queueMutex;
 	void buildStateMap();
 	void getMutex(pthread_mutex_t mutex);
 	void giveMutex(pthread_mutex_t mutex);
