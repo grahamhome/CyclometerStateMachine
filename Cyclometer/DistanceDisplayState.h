@@ -9,7 +9,7 @@
 #define DISTANCEDISPLAYSTATE_H_
 #include "CyclometerState.h"
 
-class DistanceDisplayState {
+class DistanceDisplayState : public CyclometerState {
 public:
 	DistanceDisplayState();
 	DistanceDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis);

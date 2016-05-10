@@ -7,14 +7,14 @@
 
 #include "TireSizeSelectionState.h"
 
-TireSizeSelectionState::TireSizeSelectionState(CyclometerController* c, CyclometerData* d, OutputDisplay* dis) : CyclometerState("TireSizeSelectionState", c, d, dis){};
+TireSizeSelectionState::TireSizeSelectionState(CyclometerController* c, CyclometerData* d, OutputController* dis) : CyclometerState("TireSizeSelectionState", c, d, dis){};
 
 TireSizeSelectionState::~TireSizeSelectionState() {
 	// TODO Auto-generated destructor stub
 }
 
 void TireSizeSelectionState::accept(Events event){
-	switch(event->getType()){
+	switch(event.getType()){
 		case MBP:
 			if (data->getTireSize() < 220){
 				data->setTireSize((data->getTireSize())+1);
@@ -25,11 +25,13 @@ void TireSizeSelectionState::accept(Events event){
 			data->reset(true);
 			controller->transition("DistanceUnitSelectionState");
 		case SBP:
-			if (controller->getLastState() == "DistanceUnitSelectionState"){
+			if (controller->testLastState() == "DistanceUnitSelectionState"){
 				controller->transition("SpeedDisplayState");
 			} else {
 				controller->transition("DistanceDisplayState");
 			}
+		default:
+			break;
 	}
 }
 

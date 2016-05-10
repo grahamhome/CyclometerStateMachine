@@ -7,10 +7,13 @@
 class Events{
 private:
 	EventSignals eventType;
-	float eventData;
+	std::time_t eventData;
 
 public:
-	Events(time_t data, EventSignals type);
+	Events();
+	Events(std::time_t data, EventSignals type);
 	EventSignals getType();
-	float getData();
-}
+	std::time_t getData();
+};
+
+#endif

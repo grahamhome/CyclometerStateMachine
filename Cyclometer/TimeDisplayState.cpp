@@ -7,14 +7,14 @@
 
 #include "TimeDisplayState.h"
 
-TimeDisplayState::TimeDisplayState(CyclometerController* c, CyclometerData* d, OutputDisplay* dis) : CyclometerState("TimeDisplayState", c, d, dis){};
+TimeDisplayState::TimeDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis) : CyclometerState("TimeDisplayState", c, d, dis){};
 
 TimeDisplayState::~TimeDisplayState() {
 	// TODO Auto-generated destructor stub
 }
 
 void TimeDisplayState::accept(Events event){
-	switch(event->getType()){
+	switch(event.getType()){
 		case MBP:
 			controller->transition("SpeedDisplayState");
 		case TRST:
@@ -28,6 +28,8 @@ void TimeDisplayState::accept(Events event){
 			if (data->manual()){
 				data->trip(!(data->trip()));
 			}
+		default:
+			break;
 	}
 }
 

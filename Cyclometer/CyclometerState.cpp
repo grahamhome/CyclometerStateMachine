@@ -12,7 +12,7 @@ CyclometerState::CyclometerState() {
 
 }
 
-CyclometerState::CyclometerState(string id, CyclometerController* c, CyclometerData* d, OutputController* dis){
+CyclometerState::CyclometerState(std::string id, CyclometerController* c, CyclometerData* d, OutputController* dis){
 	stateID = id;
 	controller = c;
 	data = d;

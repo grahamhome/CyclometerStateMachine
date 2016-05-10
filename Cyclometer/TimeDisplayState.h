@@ -9,7 +9,7 @@
 #define TIMEDISPLAYSTATE_H_
 #include "CyclometerState.h"
 
-class TimeDisplayState {
+class TimeDisplayState : public CyclometerState{
 public:
 	TimeDisplayState();
 	TimeDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis);

@@ -9,7 +9,9 @@
 #define SPEEDDISPLAYSTATE_H_
 #include "CyclometerState.h"
 
-class SpeedDisplayState {
+class SpeedDisplayState : public CyclometerState{
+private:
+
 public:
 	SpeedDisplayState();
 	SpeedDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis);

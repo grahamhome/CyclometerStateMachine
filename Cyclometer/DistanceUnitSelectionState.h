@@ -9,7 +9,7 @@
 #define DISTANCEUNITSELECTIONSTATE_H_
 #include "CyclometerState.h"
 
-class DistanceUnitSelectionState {
+class DistanceUnitSelectionState : public CyclometerState {
 public:
 	DistanceUnitSelectionState();
 	DistanceUnitSelectionState(CyclometerController* c, CyclometerData* d, OutputController* dis);

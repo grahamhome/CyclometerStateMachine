@@ -10,11 +10,13 @@
 #include "CyclometerController.h"
 #include "Events.h"
 #include "EventSignals.h"
+#include <ctime>
+#include <iostream>
 
 int main() {
 	//construct the controller
 	CyclometerController context();
-	context->run();
+	context.run();
 
 	//testing for the controller
 

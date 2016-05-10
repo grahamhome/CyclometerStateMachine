@@ -7,14 +7,14 @@
 
 #include "SpeedDisplayState.h"
 
-SpeedDisplayState::SpeedDisplayState(CyclometerController* c, CyclometerData* d, OutputDisplay* dis) : CyclometerState("SpeedDisplayState", c, d, dis){};
+SpeedDisplayState::SpeedDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis) : CyclometerState("SpeedDisplayState", c, d, dis){};
 
 SpeedDisplayState::~SpeedDisplayState() {
 	// TODO Auto-generated destructor stub
 }
 
 void SpeedDisplayState::accept(Events event){
-	switch(event->getType()){
+	switch(event.getType()){
 		case MBP:
 			controller->transition("DistanceDisplayState");
 		case TRST:
@@ -28,6 +28,8 @@ void SpeedDisplayState::accept(Events event){
 			if (data->manual()){
 				data->trip(!(data->trip()));
 			}
+		default:
+			break;
 	}
 }
 

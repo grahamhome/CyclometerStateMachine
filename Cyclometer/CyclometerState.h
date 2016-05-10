@@ -8,6 +8,12 @@
 #ifndef CYCLOMETERSTATE_H_
 #define CYCLOMETERSTATE_H_
 #include <string>
+#include "Events.h"
+#include "CyclometerData.h"
+#include "CyclometerController.h"
+#include "OutputController.h"
+
+using namespace std;
 
 class CyclometerState {
 protected:

@@ -9,7 +9,7 @@
 #define TIRESIZESELECTIONSTATE_H_
 #include "CyclometerState.h"
 
-class TireSizeSelectionState {
+class TireSizeSelectionState : public CyclometerState {
 public:
 	TireSizeSelectionState();
 	TireSizeSelectionState(CyclometerController* c, CyclometerData* d, OutputController* dis);
