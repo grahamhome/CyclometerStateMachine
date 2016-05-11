@@ -17,7 +17,7 @@ DistanceUnitSelectionState::~DistanceUnitSelectionState() {
 void DistanceUnitSelectionState::accept(Events event){
 	switch(event.getType()){
 		case MBP:
-			data->setUnitsMetric(!(data->unitsMetric()));
+			data->setUnitsMetric(!(data->getUnitsMetric()));
 		case FRST:
 			data->reset(true);
 		case SBP:

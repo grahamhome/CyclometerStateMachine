@@ -23,10 +23,10 @@ void TimeDisplayState::accept(Events event){
 			data->reset(true);
 			controller->transition("DistanceUnitSelectionState");
 		case SBP:
-			data->manual(!(data->manual()));
+			data->setManual(!(data->getManual()));
 		case SST:
-			if (data->manual()){
-				data->trip(!(data->trip()));
+			if (data->getManual()){
+				data->setTrip(!(data->getTrip()));
 			}
 		default:
 			break;

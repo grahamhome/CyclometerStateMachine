@@ -25,7 +25,7 @@ void DistanceDisplayState::accept(Events event){
 		case SBP:
 			controller->transition("TireSizeSelectionState");
 		case SST:
-			data->trip(!(data->trip()));
+			data->setTrip(!(data->getTrip()));
 		default:
 			break;
 	}
