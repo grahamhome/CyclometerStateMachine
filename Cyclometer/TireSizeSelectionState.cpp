@@ -25,7 +25,7 @@ void TireSizeSelectionState::accept(Event event){
 			data->reset(true);
 			controller->transition("DistanceUnitSelectionState");
 		case SBP:
-			if (controller->testLastState() == "DistanceUnitSelectionState"){
+			if (controller->testPreviousState() == "DistanceUnitSelectionState"){
 				controller->transition("SpeedDisplayState");
 			} else {
 				controller->transition("DistanceDisplayState");

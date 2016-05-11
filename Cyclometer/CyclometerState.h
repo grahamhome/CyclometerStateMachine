@@ -8,7 +8,7 @@
 #ifndef CYCLOMETERSTATE_H_
 #define CYCLOMETERSTATE_H_
 #include <string>
-#include "Events.h"
+#include "Event.h"
 #include "CyclometerData.h"
 #include "CyclometerController.h"
 #include "OutputController.h"
@@ -16,15 +16,15 @@
 using namespace std;
 
 class CyclometerState {
-private:
+protected:
 	std::string stateID;
-	CyclometerData *data;
-	//CyclometerController controller;
+	CyclometerData* data;
+	CyclometerController* controller;
 	OutputController* display;
 
 public:
 	CyclometerState();
-	//CyclometerState(std::string stateID, CyclometerController* c, CyclometerData* d, OutputController* dis);
+	CyclometerState(std::string stateID, CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~CyclometerState();
 	virtual void accept(Event event);
 	virtual void onEntry();
