@@ -35,7 +35,7 @@ private:
 	pthread_mutexattr_t *mutexAttr; //Mutex attribute variable
 	string currentState; //The state ID of the current state
 	string lastState; //The state ID of the previous state
-	//map<string, CyclometerState*> states; //Maps state IDs to state objects
+	map<string, CyclometerState*> states; //Maps state IDs to state object pointers
 	OutputController display;
 	CyclometerData data;
 	queue<Event> eventQueue; //The queue of "accepted" events waiting to be processed

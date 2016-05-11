@@ -18,8 +18,8 @@ using namespace std;
 class CyclometerState {
 protected:
 	std::string stateID;
-	CyclometerData* data;
-	CyclometerController* controller;
+	CyclometerData *data;
+	//CyclometerController controller;
 	OutputController* display;
 
 public:

@@ -55,11 +55,17 @@ void CyclometerController::giveMutex(pthread_mutex_t* mutex) {
  */
 void CyclometerController::buildStateMap() {
 	states["DistanceUnitSelectionState"];
-	states["DistanceUnitSelectionState"] = DistanceUnitSelectionState();
-	states["DistanceDisplayState"] = DistanceDisplayState();
-	states["SpeedDisplayState"] = SpeedDisplayState();
-	states["TimeDisplayState"] = TimeDisplayState();
-	states["TireSizeSelectionState"] = TireSizeSelectionState();
+	DistanceUnitSelectionState dState = DistanceUnitSelectionState();
+	states["DistanceUnitSelectionState"] = &dState;
+	DistanceDisplayState ddState = DistanceDisplayState();
+	states["DistanceDisplayState"] = &ddState;
+	SpeedDisplayState sState = SpeedDisplayState();
+	states["SpeedDisplayState"] = &sState;
+	TimeDisplayState tState = TimeDisplayState();
+	states["TimeDisplayState"] = &tState;
+	TireSizeSelectionState tSState = TireSizeSelectionState();
+	states["TireSizeSelectionState"] = &tSState;
+
 }
 
 void CyclometerController::accept(Event e) {
@@ -69,8 +75,8 @@ void CyclometerController::accept(Event e) {
 }
 
 void CyclometerController::transition(std::string stateName) {
-	states[currentState].onExit();
-	states[stateName].onEntry();
+	states[currentState]->onExit();
+	states[stateName]->onEntry();
 	lastState = currentState;
 	currentState = stateName;
 }
@@ -82,7 +88,7 @@ void CyclometerController::run() {
 		next = eventQueue.front();
 		eventQueue.pop();
 		giveMutex(queueMutex);
-		states[currentState].accept(next);
+		states[currentState]->accept(next);
 	}
 }
 
