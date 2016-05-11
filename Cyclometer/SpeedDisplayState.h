@@ -16,7 +16,7 @@ public:
 	SpeedDisplayState();
 	SpeedDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~SpeedDisplayState();
-	void accept(Events event);
+	void accept(Event event);
 	void onEntry();
 	void onExit();
 };

@@ -4,14 +4,14 @@
 #include "EventSignals.h"
 #include <ctime>
 
-class Events{
+class Event{
 private:
 	EventSignals eventType;
 	std::time_t eventData;
 
 public:
-	Events();
-	Events(std::time_t data, EventSignals type);
+	Event();
+	Event(std::time_t data, EventSignals type);
 	EventSignals getType();
 	std::time_t getData();
 };

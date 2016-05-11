@@ -14,7 +14,7 @@ public:
 	DistanceDisplayState();
 	DistanceDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~DistanceDisplayState();
-	void accept(Events event);
+	void accept(Event event);
 	void onEntry();
 	void onExit();
 };

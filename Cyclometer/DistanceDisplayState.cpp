@@ -13,7 +13,7 @@ DistanceDisplayState::~DistanceDisplayState() {
 	// TODO Auto-generated destructor stub
 }
 
-void DistanceDisplayState::accept(Events event){
+void DistanceDisplayState::accept(Event event){
 	switch(event.getType()){
 		case MBP:
 			controller->transition("TimeDisplayState");

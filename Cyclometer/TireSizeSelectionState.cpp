@@ -13,7 +13,7 @@ TireSizeSelectionState::~TireSizeSelectionState() {
 	// TODO Auto-generated destructor stub
 }
 
-void TireSizeSelectionState::accept(Events event){
+void TireSizeSelectionState::accept(Event event){
 	switch(event.getType()){
 		case MBP:
 			if (data->getTireSize() < 220){

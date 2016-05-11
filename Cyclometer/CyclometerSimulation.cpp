@@ -28,11 +28,11 @@ int main() {
 	EventSignals trst = TRST;
 
 	//creating all the events
-	Events eWRP(std::time(nullptr), wrp);
-	Events eSST(std::time(nullptr), sst);
-	Events eSBP(std::time(nullptr), sbp);
-	Events eMBP(std::time(nullptr), mbp);
-	Events eTRST(std::time(nullptr), trst);
+	Event eWRP(std::time(nullptr), wrp);
+	Event eSST(std::time(nullptr), sst);
+	Event eSBP(std::time(nullptr), sbp);
+	Event eMBP(std::time(nullptr), mbp);
+	Event eTRST(std::time(nullptr), trst);
 
 	//changing the states and do the stuff
 

@@ -14,7 +14,7 @@ public:
 	TimeDisplayState();
 	TimeDisplayState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~TimeDisplayState();
-	void accept(Events event);
+	void accept(Event event);
 	void onEntry();
 	void onExit();
 

@@ -13,7 +13,7 @@ TimeDisplayState::~TimeDisplayState() {
 	// TODO Auto-generated destructor stub
 }
 
-void TimeDisplayState::accept(Events event){
+void TimeDisplayState::accept(Event event){
 	switch(event.getType()){
 		case MBP:
 			controller->transition("SpeedDisplayState");
