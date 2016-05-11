@@ -1,18 +1,18 @@
 #include "Events.h"
 
-Events::Events(){
+Event::Event(){
 
 }
 
-Events::Events(std::time_t data, EventSignals type){
+Event::Event(std::time_t data, EventSignals type){
 	eventType = type;
 	eventData = data;
 }
 
-EventSignals Events::getType(){
+EventSignals Event::getType(){
 	return eventType;
 }
 
-std::time_t Events::getData(){
+std::time_t Event::getData(){
 	return eventData;
 }

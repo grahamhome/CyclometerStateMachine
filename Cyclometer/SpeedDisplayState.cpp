@@ -13,7 +13,7 @@ SpeedDisplayState::~SpeedDisplayState() {
 	// TODO Auto-generated destructor stub
 }
 
-void SpeedDisplayState::accept(Events event){
+void SpeedDisplayState::accept(Event event){
 	switch(event.getType()){
 		case MBP:
 			controller->transition("DistanceDisplayState");

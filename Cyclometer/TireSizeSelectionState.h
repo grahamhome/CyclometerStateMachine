@@ -14,7 +14,7 @@ public:
 	TireSizeSelectionState();
 	TireSizeSelectionState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~TireSizeSelectionState();
-	void accept(Events event);
+	void accept(Event event);
 	void onEntry();
 	void onExit();
 

@@ -23,7 +23,7 @@ CyclometerState::~CyclometerState() {
 	// TODO Auto-generated destructor stub
 }
 
-void CyclometerState::accept(Events event){
+void CyclometerState::accept(Event event){
 	//do nothing
 }
 

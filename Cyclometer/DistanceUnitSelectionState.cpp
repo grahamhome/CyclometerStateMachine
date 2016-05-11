@@ -14,7 +14,7 @@ DistanceUnitSelectionState::~DistanceUnitSelectionState() {
 	// TODO Auto-generated destructor stub
 }
 
-void DistanceUnitSelectionState::accept(Events event){
+void DistanceUnitSelectionState::accept(Event event){
 	switch(event.getType()){
 		case MBP:
 			data->setUnitsMetric(!(data->unitsMetric()));

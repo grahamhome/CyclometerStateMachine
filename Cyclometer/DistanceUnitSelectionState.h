@@ -14,7 +14,7 @@ public:
 	DistanceUnitSelectionState();
 	DistanceUnitSelectionState(CyclometerController* c, CyclometerData* d, OutputController* dis);
 	virtual ~DistanceUnitSelectionState();
-	void accept(Events event);
+	void accept(Event event);
 	void onEntry();
 	void onExit();
 };

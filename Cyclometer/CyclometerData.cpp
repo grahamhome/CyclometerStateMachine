@@ -102,13 +102,18 @@ time_t CyclometerData::lastUpdateTime() {
  */
 void CyclometerData::update(time_t pulseTime) {
 
+	//Always update current speed
+	setCurrentSpeed(pulseTime);
+
 	//If auto mode
-	if (! (getManual()) ) {
+	if (!(getManual())) {
 
 		//Get time since last wheel sensor pulse received
 		double elapsed = difftime(pulseTime, lastUpdateTime());
 		//If timeout has not expired
 		if (elapsed < timeout) {
+			//Update trip speed
+			setTripSpeed();
 		}
 
 		//Update trip distance
@@ -123,6 +128,8 @@ void CyclometerData::update(time_t pulseTime) {
 
 			//Update trip distance
 			incrementTripDistance();
+			//Update trip speed
+			setTripSpeed();
 		}
 
 	}
