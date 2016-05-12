@@ -13,11 +13,12 @@
 #include <queue>
 #include <pthread.h>
 #include "CyclometerData.h"
-#include "CyclometerState.h"
 #include "Event.h"
 #include "OutputController.h"
 
 using namespace std;
+
+class CyclometerState;
 
 class CyclometerController {
 public:

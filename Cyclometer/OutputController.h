@@ -2,7 +2,7 @@
  * OutputController.h
  *
  *  Created on: May 9, 2016
- *      Author: Shannalotte
+ *      Author: Kai
  */
 
 #ifndef OUTPUTCONTROLLER_H_

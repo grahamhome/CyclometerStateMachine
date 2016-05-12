@@ -10,16 +10,17 @@
 #include <string>
 #include "Event.h"
 #include "CyclometerData.h"
-#include "CyclometerController.h"
+//#include "CyclometerController.h"
 #include "OutputController.h"
 
 using namespace std;
+class CyclometerController;
 
 class CyclometerState {
 protected:
 	std::string stateID;
-	CyclometerData *data;
-	//CyclometerController controller;
+	CyclometerData* data;
+	CyclometerController* controller;
 	OutputController* display;
 
 public:

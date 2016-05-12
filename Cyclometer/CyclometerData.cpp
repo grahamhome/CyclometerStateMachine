@@ -360,3 +360,11 @@ void CyclometerData::resetAllData() {
 	setTireSize(210); //Set tire size to default value
 	setUnitsMetric(true);
 }
+
+void CyclometerData::reset(bool hardReset) {
+	if (hardReset) {
+		resetAllData();
+	} else {
+		resetTripData();
+	}
+}

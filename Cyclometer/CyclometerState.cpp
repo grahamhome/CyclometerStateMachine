@@ -6,7 +6,7 @@
  */
 
 #include "CyclometerState.h"
-
+#include "CyclometerController.h"
 CyclometerState::CyclometerState() {
 	// TODO Auto-generated constructor stub
 

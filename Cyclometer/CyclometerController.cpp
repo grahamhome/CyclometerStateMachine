@@ -12,6 +12,7 @@
 #include "SpeedDisplayState.h"
 #include "TimeDisplayState.h"
 #include "TireSizeSelectionState.h"
+#include "OutputController.h"
 
 using namespace std;
 
@@ -22,7 +23,8 @@ CyclometerController::CyclometerController() {
 	//Initialize mutexes with error-checking attribute
 	pthread_mutex_init(queueMutex, mutexAttr);
 
-	data = CyclometerData();
+	CyclometerData data;
+	OutputController display;
 	currentState = "DistanceUnitSelectionState";
 	lastState = "DistanceUnitSelectionState";
 	buildStateMap();
@@ -55,15 +57,15 @@ void CyclometerController::giveMutex(pthread_mutex_t* mutex) {
  */
 void CyclometerController::buildStateMap() {
 	states["DistanceUnitSelectionState"];
-	DistanceUnitSelectionState dState = DistanceUnitSelectionState();
+	DistanceUnitSelectionState dState = DistanceUnitSelectionState(this, &data, &display);
 	states["DistanceUnitSelectionState"] = &dState;
-	DistanceDisplayState ddState = DistanceDisplayState();
+	DistanceDisplayState ddState = DistanceDisplayState(this, &data, &display);
 	states["DistanceDisplayState"] = &ddState;
-	SpeedDisplayState sState = SpeedDisplayState();
+	SpeedDisplayState sState = SpeedDisplayState(this, &data, &display);
 	states["SpeedDisplayState"] = &sState;
-	TimeDisplayState tState = TimeDisplayState();
+	TimeDisplayState tState = TimeDisplayState(this, &data, &display);
 	states["TimeDisplayState"] = &tState;
-	TireSizeSelectionState tSState = TireSizeSelectionState();
+	TireSizeSelectionState tSState = TireSizeSelectionState(this, &data, &display);
 	states["TireSizeSelectionState"] = &tSState;
 
 }
