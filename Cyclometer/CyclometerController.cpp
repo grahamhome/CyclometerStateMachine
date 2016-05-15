@@ -87,10 +87,14 @@ void CyclometerController::run() {
 	Event next;
 	while(1) {
 		getMutex(queueMutex);
-		next = eventQueue.front();
-		eventQueue.pop();
-		giveMutex(queueMutex);
-		states[currentState]->accept(next);
+		if (eventQueue.size() > 0) {
+			next = eventQueue.front();
+			eventQueue.pop();
+			giveMutex(queueMutex);
+			states[currentState]->accept(next);
+		} else {
+			giveMutex(queueMutex);
+		}
 	}
 }
 
