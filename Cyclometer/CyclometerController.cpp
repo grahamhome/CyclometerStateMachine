@@ -13,21 +13,37 @@
 #include "TimeDisplayState.h"
 #include "TireSizeSelectionState.h"
 #include "OutputController.h"
-
+#include <stdio.h>
+#include <string>
+#include <iostream>
 using namespace std;
 
 CyclometerController::CyclometerController() {
-	pthread_mutexattr_init(mutexAttr); //Initialize mutex attribute variable
-	pthread_mutexattr_settype(mutexAttr, PTHREAD_MUTEX_ERRORCHECK); //Set mutex attribute variable to error-checking type
+
+	pthread_mutexattr_init(&mutexAttr); //Initialize mutex attribute variable
+	pthread_mutexattr_settype(&mutexAttr, PTHREAD_MUTEX_ERRORCHECK); //Set mutex attribute variable to error-checking type
 
 	//Initialize mutexes with error-checking attribute
-	pthread_mutex_init(queueMutex, mutexAttr);
+	pthread_mutex_init(&queueMutex, &mutexAttr);
 
-	CyclometerData data;
-	OutputController display;
+	printf("right before assigning\n");
+	data = new CyclometerData();
+
+	OutputController *display;
 	currentState = "DistanceUnitSelectionState";
 	lastState = "DistanceUnitSelectionState";
-	buildStateMap();
+
+	DistanceUnitSelectionState *dState = new DistanceUnitSelectionState(this, data, display);
+	states["DistanceUnitSelectionState"] = dState;
+	DistanceDisplayState *ddState = new DistanceDisplayState(this, data, display);
+	states["DistanceDisplayState"] = ddState;
+	SpeedDisplayState *sState = new SpeedDisplayState(this, data, display);
+	states["SpeedDisplayState"] = sState;
+	TimeDisplayState *tState = new TimeDisplayState(this, data, display);
+	states["TimeDisplayState"] = tState;
+	TireSizeSelectionState *tSState = new TireSizeSelectionState(this, data, display);
+	states["TireSizeSelectionState"] = tSState;
+
 	transition("DistanceUnitSelectionState"); //Default start state
 }
 
@@ -55,25 +71,12 @@ void CyclometerController::giveMutex(pthread_mutex_t* mutex) {
 /*
  * Creates a map of state names to state objects.
  */
-void CyclometerController::buildStateMap() {
-	states["DistanceUnitSelectionState"];
-	DistanceUnitSelectionState dState = DistanceUnitSelectionState(this, &data, &display);
-	states["DistanceUnitSelectionState"] = &dState;
-	DistanceDisplayState ddState = DistanceDisplayState(this, &data, &display);
-	states["DistanceDisplayState"] = &ddState;
-	SpeedDisplayState sState = SpeedDisplayState(this, &data, &display);
-	states["SpeedDisplayState"] = &sState;
-	TimeDisplayState tState = TimeDisplayState(this, &data, &display);
-	states["TimeDisplayState"] = &tState;
-	TireSizeSelectionState tSState = TireSizeSelectionState(this, &data, &display);
-	states["TireSizeSelectionState"] = &tSState;
 
-}
 
 void CyclometerController::accept(Event e) {
-	getMutex(queueMutex);
+	getMutex(&queueMutex);
 	eventQueue.push(e);
-	giveMutex(queueMutex);
+	giveMutex(&queueMutex);
 }
 
 void CyclometerController::transition(std::string stateName) {
@@ -83,17 +86,17 @@ void CyclometerController::transition(std::string stateName) {
 	currentState = stateName;
 }
 
-void CyclometerController::run() {
+void *CyclometerController::run() {
 	Event next;
 	while(1) {
-		getMutex(queueMutex);
+		getMutex(&queueMutex);
 		if (eventQueue.size() > 0) {
 			next = eventQueue.front();
 			eventQueue.pop();
-			giveMutex(queueMutex);
+			giveMutex(&queueMutex);
 			states[currentState]->accept(next);
 		} else {
-			giveMutex(queueMutex);
+			giveMutex(&queueMutex);
 		}
 	}
 }
@@ -101,7 +104,7 @@ void CyclometerController::run() {
 /*
  * Returns data object for testing purposes.
  */
-CyclometerData CyclometerController::testData() {
+CyclometerData *CyclometerController::testData() {
 	return data;
 }
 

@@ -10,11 +10,10 @@
 #include <string>
 #include "Event.h"
 #include "CyclometerData.h"
-//#include "CyclometerController.h"
-#include "OutputController.h"
 #include "CyclometerController.h"
+#include "OutputController.h"
 
-using namespace std;
+class CyclometerController;
 
 class CyclometerState {
 protected:

@@ -15,13 +15,19 @@ DistanceUnitSelectionState::~DistanceUnitSelectionState() {
 }
 
 void DistanceUnitSelectionState::accept(Event event){
+
+	bool setM;
 	switch(event.getType()){
 		case MBP:
-			data->setUnitsMetric(!(data->getUnitsMetric()));
+			setM = not (data->getUnitsMetric());
+			data->setUnitsMetric(setM);
+			break;
 		case FRST:
 			data->reset(true);
+			break;
 		case SBP:
 			controller->transition("TireSizeSelectionState");
+			break;
 		default:
 			break;
 	}

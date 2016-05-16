@@ -21,15 +21,18 @@ void TireSizeSelectionState::accept(Event event){
 			} else {
 				data->setTireSize(190);
 			}
+			break;
 		case FRST:
 			data->reset(true);
 			controller->transition("DistanceUnitSelectionState");
+			break;
 		case SBP:
 			if (controller->testPreviousState() == "DistanceUnitSelectionState"){
 				controller->transition("SpeedDisplayState");
 			} else {
 				controller->transition("DistanceDisplayState");
 			}
+			break;
 		default:
 			break;
 	}
