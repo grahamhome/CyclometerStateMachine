@@ -68,9 +68,6 @@ void CyclometerController::giveMutex(pthread_mutex_t* mutex) {
 		result = pthread_mutex_unlock(mutex);
 	 }
 }
-/*
- * Creates a map of state names to state objects.
- */
 
 
 void CyclometerController::accept(Event e) {

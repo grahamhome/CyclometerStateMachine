@@ -34,8 +34,8 @@ int main() {
 
 	//construct the controller
 	printf("starting\n");
-	CyclometerData *data = new CyclometerData();
-	CyclometerController context(data);
+	//CyclometerData *data = new CyclometerData();
+	CyclometerController context = CyclometerController();
 	printf("created controller\n");
 
 	pthread_t contextThread;
