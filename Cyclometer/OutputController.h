@@ -11,12 +11,13 @@
 #include <string>
 #include <pthread.h>
 #include <stdint.h>
+#include "CyclometerData.h"
 
 using namespace std;
 
 class OutputController {
 public:
-	OutputController();
+	OutputController(CyclometerData cd);
 	virtual ~OutputController();
 	void setData(std::string s);
 	void run();
@@ -33,6 +34,7 @@ private:
 	void getMutex(pthread_mutex_t* mutex);
 	void giveMutex(pthread_mutex_t* mutex);
 	string getData();
+	CyclometerData data;
 };
 
 #endif /* OUTPUTCONTROLLER_H_ */

@@ -10,7 +10,8 @@
 #include <hw/inout.h>
 #include <unistd.h>
 
-OutputController::OutputController() {
+OutputController::OutputController(CyclometerData cd) {
+	data = cd;
 	pthread_mutexattr_init(&mutexAttr); //Initialize mutex attribute variable
 	pthread_mutexattr_settype(&mutexAttr, PTHREAD_MUTEX_ERRORCHECK); //Set mutex attribute variable to error-checking type
 
